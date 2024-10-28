@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <form method="POST">
+        {%csrf_token%}
+        <input type="text" name="name" placeholder="Enter a Task" required>
+        <button type="submit">Create</button>
+    </form>
+    <h2> Tasks for {{user_info.first_name}} {{user_info.last_name}}</h2>
+    {%if tasks%}
+     <ul>
+        {%for task in tasks%}
+        <li>
+            {{task.name}} <!-- -- Created at-{{ task.created_at|date:"Y-m-d H:i:s" }}  
+             --Status: {{ task.status }}
+            {% if task.status == 'COMPLETED' %}
+                        -- Updated at: {{ task.updated_at|date:"Y-m-d H:i:s" }}
+                    {% endif %} -->
+            <form method="POST" action="{% url 'mark_as_done' task.id %}">
+                {%csrf_token%}
+                <button type="submit">
+                    {% if task.status == 'PENDING' %}
+                        Mark As Done
+                    {% else %}
+                       Undo
+                    {% endif %} </button>
+            </form>
+            <form method="POST" action="{% url 'delete_task' task.id %}">
+                {%csrf_token%}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+      </ul>
+     {%else%}
+       No Tasks Yet
+    {% endif %}
+    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+</body>
+</html>
