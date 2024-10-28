@@ -1,15 +1,20 @@
-<html>
-    <head>
-        <title>Verify OTP</title>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+   
 <body>
-<form method="POST">
-    {% csrf_token %}
-    <label>Email:</label>
-    <input type="email" name="email" required>
-    <label>OTP Code:</label>
-    <input type="text" name="otp_code" required>
-    <button type="submit">Verify OTP</button>
-</form>
+ <h2>Verify OTP</h2>
+         <form method="POST" action="{% url 'verify_otp' %}">
+            {% csrf_token %}
+                <label for="otp_code">Enter OTP:</label>
+                <input type="text" class="form-control" id="otp_code" name="otp_code" required>
+            <button type="submit" class="btn btn-primary">Verify OTP</button>
+        </form>
+            <p>If you didn't receive the OTP, you can <a href="{% url 'login' %}">request a new one</a>.</p>
+        </div>
+    </div>
 </body>
 </html>

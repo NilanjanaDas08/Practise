@@ -22,7 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.register,name="register"),
     path('login/',views.login,name="login"),
-    path("send-otp/", views.send_otp, name="send_otp"),
     path("verify-otp/", views.verify_otp, name="verify_otp"),
     path('task_list/',views.task_list,name="task_list"),
     path('mark_as_done/<int:task_id>/',views.mark_as_done,name="mark_as_done"),
